@@ -1,9 +1,7 @@
-name: Build iOS MAUI
+name: MAUI iOS Build
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
 
@@ -14,17 +12,17 @@ jobs:
 
     steps:
 
-    - name: 下載程式碼
+    - name: Checkout
       uses: actions/checkout@v4
 
 
-    - name: 安裝 .NET
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
 
-    - name: 安裝 MAUI
+    - name: Install MAUI
       run: |
         dotnet workload install maui
 
