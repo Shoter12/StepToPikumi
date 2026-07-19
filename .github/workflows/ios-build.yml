@@ -1,0 +1,41 @@
+name: Build iOS MAUI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+
+    runs-on: macos-latest
+
+
+    steps:
+
+    - name: 下載程式碼
+      uses: actions/checkout@v4
+
+
+    - name: 安裝 .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+
+    - name: 安裝 MAUI
+      run: |
+        dotnet workload install maui
+
+
+    - name: Restore
+      run: |
+        dotnet restore
+
+
+    - name: Build iOS
+      run: |
+        dotnet build \
+        -f net8.0-ios \
+        -c Release
