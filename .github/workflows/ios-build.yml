@@ -19,7 +19,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
 
 
     - name: Install MAUI
@@ -31,9 +31,17 @@ jobs:
       run: |
         dotnet restore
 
+    - name: Build IPA
+      run: |
+       dotnet publish -f net9.0-ios -c Release \
+         -p:ArchiveOnBuild=true \
+         -p:RuntimeIdentifier=ios-arm64 \
+         -p:CodesignKey="iPhone Distribution" \
+         -p:CodesignProvision="YourProfileName"
 
     - name: Build iOS
       run: |
         dotnet build \
         -f net8.0-ios \
         -c Release
+
