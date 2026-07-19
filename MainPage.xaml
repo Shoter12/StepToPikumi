@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="StepEditor.MainPage"
+    Title="健康步數">
+
+    <VerticalStackLayout
+        Padding="20"
+        Spacing="15">
+
+        <Button
+          Text="取得健康資料授權"
+          Clicked="btnAuth_Clicked" />
+
+
+        <Label
+            Text="健康步數測試"
+            FontSize="28"
+            HorizontalOptions="Center" />
+
+        <Label
+            Text="請輸入要增加的步數" />
+
+        <Entry
+            x:Name="txtStep"
+            Placeholder="例如：1000"
+            Keyboard="Numeric" />
+
+        <Button
+            x:Name="btnAdd"
+            Text="增加步數"
+            Clicked="btnAdd_Clicked" />
+
+      
+    </VerticalStackLayout>
+
+</ContentPage>
