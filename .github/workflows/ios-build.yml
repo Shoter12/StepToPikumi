@@ -15,17 +15,17 @@ jobs:
       uses: actions/checkout@v4
 
 
-    - name: Setup .NET
+    - name: Setup .NET 安裝
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
 
 
-    - name: Check workload
+    - name: Check workload 確認
       run: |
         dotnet workload list
 
-    - name: Check csproj
+    - name: Check csproj 確認版本
       run: |
         grep TargetFramework StepEditor.csproj
         
