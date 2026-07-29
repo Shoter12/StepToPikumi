@@ -25,7 +25,10 @@ jobs:
       run: |
         dotnet workload list
 
-
+    - name: Check csproj
+      run: |
+        grep TargetFramework StepEditor.csproj
+        
     - name: Restore
       run: |
         dotnet restore
