@@ -2,7 +2,10 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-ios</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(TargetFramework)'=='net9.0-ios'">
+ 				<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+			    <SupportedOSPlatformVersion>15.0</SupportedOSPlatformVersion>
+		</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
 
