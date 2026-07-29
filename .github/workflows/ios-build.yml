@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
+
   build:
 
     runs-on: macos-latest
@@ -20,14 +21,15 @@ jobs:
         dotnet-version: 9.0.x
 
 
-    - name: Install MAUI
+    - name: Check workload
       run: |
-        dotnet workload install maui
+        dotnet workload list
 
 
     - name: Restore
       run: |
         dotnet restore
+
         
     - name: Build IPA
       run: |
