@@ -1,52 +1,65 @@
-name: MAUI iOS Build
+name: iOS Build
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
 
-
 jobs:
   build-ios:
 
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
 
+    # 1. 取得程式碼
     - name: Checkout
       uses: actions/checkout@v4
 
 
+    # 2. 固定 Xcode 16.4
+    - name: Select Xcode 16.4
+      run: |
+        sudo xcode-select -s /Applications/Xcode_16.4.app
+        xcodebuild -version
+
+
+    # 3. 安裝 .NET 9 SDK
     - name: Setup .NET 9
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.101
+        dotnet-version: |
+          9.0.101
 
-    - name: Cleanup old workloads
+
+    # 4. 確認版本
+    - name: Check dotnet
       run: |
-        dotnet workload clean
+        dotnet --info
 
 
-
-    - name: Install MAUI workload
+    # 5. 安裝 MAUI iOS workload
+    - name: Install MAUI
       run: |
         dotnet workload install maui-ios \
           --version 9.0.101 \
           --skip-manifest-update
 
 
+    # 6. Restore
     - name: Restore
       run: |
         dotnet restore StepEditor.csproj
 
 
+    # 7. Build iOS
     - name: Build iOS
       run: |
         dotnet build StepEditor.csproj \
           -f net9.0-ios \
           -c Release \
-          --no-restore
+          /p:ArchiveOnBuild=true \
+          /p:RuntimeIdentifier=ios-arm64
         
     - name: Build IPA
       run: |
