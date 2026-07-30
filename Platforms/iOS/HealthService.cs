@@ -25,7 +25,7 @@ public class HealthService : IHealthService
 
 
         var stepType =
-            HKObjectType.GetQuantityType(HKQuantityTypeIdentifier.StepCount);
+            HKQuantityType.Create(HKQuantityTypeIdentifier.StepCount);
 
 
 
@@ -60,7 +60,7 @@ public class HealthService : IHealthService
 
 
         var stepType =
-            HKObjectType.GetQuantityType(HKQuantityTypeIdentifier.StepCount);
+            HKQuantityType.Create(HKQuantityTypeIdentifier.StepCount);
 
 
 
@@ -89,8 +89,7 @@ public class HealthService : IHealthService
     public bool IsAuthorized()
     {
         var stepType =
-            HKObjectType.GetQuantityType(HKQuantityTypeIdentifier.StepCount);
-
+            HKQuantityType.Create(HKQuantityTypeIdentifier.StepCount);
 
         var status =
             _healthStore.GetAuthorizationStatus(stepType);
