@@ -85,7 +85,7 @@ jobs:
           API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
           API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
-        run: |
+      run: |
           mkdir -p private_keys
           echo "$API_PRIVATE_KEY" > private_keys/AuthKey_$API_KEY_ID.p8
           export API_PRIVATE_KEYS_DIR=$(pwd)/private_keys
