@@ -17,13 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          9.0.x
-
-   # 1. 核心修正：強制切換到符合 Apple 要求的 Xcode 26 版本
-    - name: Select Xcode
-      run: |
-        sudo xcode-select -s /Applications/Xcode_26.app
-        xcodebuild -version
+          9.0.x 
 
     - name: Install MAUI workload
       run: |
@@ -66,6 +60,8 @@ jobs:
       run: dotnet restore StepEditor.csproj
 
     - name: Build & Archive IPA
+      env:
+          DEVELOPER_DIR: /Applications/Xcode_26.2.app/Contents/Developer
       run: |
         dotnet publish StepEditor.csproj \
           -f net9.0-ios \
