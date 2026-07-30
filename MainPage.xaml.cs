@@ -11,8 +11,20 @@ public partial class MainPage : ContentPage
         InitializeComponent();
 
         _healthService = healthService;
+        RequestPermission();
     }
+    private async void RequestPermission()
+    {
+        bool ok = await _healthService.RequestAuthorizationAsync();
 
+        if (!ok)
+        {
+            await DisplayAlert(
+                "提醒",
+                "沒有取得 HealthKit 權限",
+                "OK");
+        }
+    }
     private async void btnAdd_Clicked(
         object sender,
         EventArgs e)
