@@ -64,8 +64,8 @@ public Task<bool> AddStepAsync(int step)
             HKUnit.Count,
             step);
 
-    var startDate = NSDate.Now;
     var endDate = NSDate.Now;
+    var startDate = endDate.AddSeconds(-1);
 
     var sample =
         HKQuantitySample.FromType(stepType, quantity, startDate, endDate);
