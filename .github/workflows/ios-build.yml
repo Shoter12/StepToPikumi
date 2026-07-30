@@ -73,3 +73,9 @@ jobs:
           -p:RuntimeIdentifier=ios-arm64 \
           -p:CodesignKey="Apple Distribution: CHEN YEN YAO (42X7J7M4N4)" \
           -p:CodesignProvision="PATGame"
+    - name: Upload IPA
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios-ipa
+        path: |
+            bin/FinishBin/ios.ipa
