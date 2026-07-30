@@ -80,19 +80,12 @@ jobs:
         name: ios-ipa
         path: "**/*.ipa"
     
-    - name: Upload IPA File
-      env:
-          API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-          API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
-          API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
-      run: |
-          mkdir -p private_keys
-          echo "$API_PRIVATE_KEY" > private_keys/AuthKey_$API_KEY_ID.p8
-          export API_PRIVATE_KEYS_DIR=$(pwd)/private_keys
-          xcrun iTMSTransporter \
-            -m upload \
-            -assetFile bin/Release/net9.0-ios/ios-arm64/publish/StepEditor.ipa \
-            -apiKey $API_KEY_ID \
-            -apiIssuer $API_ISSUER_ID
+    - name: Upload to TestFlight
+      uses: apple-actions/upload-testflight-build@v1
+      with:
+        app-path: 'bin/Release/net9.0-ios/ios-arm64/publish/StepEditor.ipa'
+        issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
+        api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+        api-private-key: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
    
   
