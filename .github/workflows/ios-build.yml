@@ -84,8 +84,8 @@ jobs:
       uses: apple-actions/upload-testflight-build@v1
       with:
         app-path: 'bin/Release/net9.0-ios/ios-arm64/publish/StepEditor.ipa'
-        issuer-id: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
-        api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-        api-private-key: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+        issuer-id: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        api-key-id: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+        api-private-key: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
    
   
