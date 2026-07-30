@@ -73,16 +73,26 @@ jobs:
           -p:RuntimeIdentifier=ios-arm64 \
           -p:CodesignKey="Apple Distribution: CHEN YEN YAO (42X7J7M4N4)" \
           -p:CodesignProvision="PATGame"
+    
     - name: Upload IPA
       uses: actions/upload-artifact@v4
       with:
         name: ios-ipa
         path: "**/*.ipa"
-        
-    - name: Upload to App Store Connect
-      uses: apple-actions/upload-testflight-build@v1
-      with:
-        app-path: bin/Release/net9.0-ios/ios-arm64/publish/StepEditor.ipa
-        issuer-id: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
-        api-key-id: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
-        api-private-key: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+    
+    - name: Upload IPA File
+      env:
+          API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
+          API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
+          API_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+        run: |
+          mkdir -p private_keys
+          echo "$API_PRIVATE_KEY" > private_keys/AuthKey_$API_KEY_ID.p8
+          export API_PRIVATE_KEYS_DIR=$(pwd)/private_keys
+          xcrun iTMSTransporter \
+            -m upload \
+            -assetFile bin/Release/net9.0-ios/ios-arm64/publish/StepEditor.ipa \
+            -apiKey $API_KEY_ID \
+            -apiIssuer $API_ISSUER_ID
+   
+  
