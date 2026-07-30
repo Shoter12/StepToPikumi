@@ -54,38 +54,29 @@ public class HealthService : IHealthService
 
 
     // 寫入步數
-    public Task<bool> AddStepAsync(int step)
-    {
-        var tcs = new TaskCompletionSource<bool>();
+public Task<bool> AddStepAsync(int step)
+{
+    var tcs = new TaskCompletionSource<bool>();
+    var stepType =
+        HKQuantityType.Create(HKQuantityTypeIdentifier.StepCount);
+    var quantity =
+        HKQuantity.FromQuantity(
+            HKUnit.Count,
+            step);
 
+    var startDate = NSDate.Now;
+    var endDate = NSDate.Now;
 
-        var stepType =
-            HKQuantityType.Create(HKQuantityTypeIdentifier.StepCount);
-
-
-
-        var quantity =
-            HKQuantity.FromQuantity(
-                HKUnit.Count,
-                step);
-
-
-
-        var sample =
-            HKQuantitySample.FromType(quantityType, quantity, startDate, endDate);
-
-
-
-        _healthStore.SaveObject(
-            sample,
-            (success, error) =>
-            {
-                tcs.SetResult(success);
-            });
-
-
-        return tcs.Task;
-    }
+    var sample =
+        HKQuantitySample.FromType(stepType, quantity, startDate, endDate);
+    _healthStore.SaveObject(
+        sample,
+        (success, error) =>
+        {
+            tcs.SetResult(success);
+        });
+    return tcs.Task;
+}
     public bool IsAuthorized()
     {
         var stepType =
