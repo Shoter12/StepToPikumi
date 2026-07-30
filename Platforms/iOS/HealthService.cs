@@ -25,8 +25,7 @@ public class HealthService : IHealthService
 
 
         var stepType =
-            HKQuantityType.GetQuantityType(
-                HKQuantityTypeIdentifier.StepCount);
+            HKObjectType.GetQuantityType(HKQuantityTypeIdentifier.StepCount);
 
 
 
@@ -61,8 +60,7 @@ public class HealthService : IHealthService
 
 
         var stepType =
-            HKQuantityType.GetQuantityType(
-                HKQuantityTypeIdentifier.StepCount);
+            HKObjectType.GetQuantityType(HKQuantityTypeIdentifier.StepCount);
 
 
 
@@ -74,12 +72,7 @@ public class HealthService : IHealthService
 
 
         var sample =
-            HKQuantitySample.Create(
-                stepType,
-                quantity,
-                NSDate.Now,
-                NSDate.Now,
-                null);
+            HKQuantitySample.FromType(quantityType, quantity, startDate, endDate);
 
 
 
@@ -96,8 +89,7 @@ public class HealthService : IHealthService
     public bool IsAuthorized()
     {
         var stepType =
-            HKQuantityType.GetQuantityType(
-                HKQuantityTypeIdentifier.StepCount);
+            HKObjectType.GetQuantityType(HKQuantityTypeIdentifier.StepCount);
 
 
         var status =
