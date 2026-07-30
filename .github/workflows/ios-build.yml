@@ -71,5 +71,5 @@ jobs:
           -c Release \
           -p:ArchiveOnBuild=true \
           -p:RuntimeIdentifier=ios-arm64 \
-          -p:CodesignKey="iPhone Distribution: CHEN YEN YAO (42X7J7M4N4)" \
+          -p:CodesignKey="Apple Distribution: CHEN YEN YAO (42X7J7M4N4)" \
           -p:CodesignProvision="PATGame"
