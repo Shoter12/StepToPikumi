@@ -58,7 +58,7 @@ public partial class MainPage : ContentPage
         bool result = await _healthService.AddStepAsync(step);
         if (result)
         {
-            _urlLauncher.OpenUrl("shortcuts://");
+            _urlLauncher.OpenUrl("pikminbloom://");
         }
        
       //  await DisplayAlert(
