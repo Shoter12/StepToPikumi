@@ -10,11 +10,6 @@
         Padding="20"
         Spacing="15">
 
-        <Button
-          Text="取得健康資料授權"
-          Clicked="btnAuth_Clicked" />
-
-
         <Label
             Text="健康步數測試"
             FontSize="28"
