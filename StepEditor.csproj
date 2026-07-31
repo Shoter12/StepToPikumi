@@ -48,7 +48,7 @@
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
-        <MauiEntitlements Include="Platforms\iOS\Entitlements.plist" />
+       
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -68,5 +68,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 	</ItemGroup>
-
+	<ItemGroup>
+		 <MauiEntitlements Include="Platforms\iOS\Entitlements.plist" />
+	</ItemGroup>
 </Project>
