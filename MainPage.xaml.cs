@@ -5,12 +5,14 @@ namespace StepEditor;
 public partial class MainPage : ContentPage
 {
     private readonly IHealthService _healthService;
-
+    private readonly IUrlLauncher _urlLauncher;
+    
     public MainPage(IHealthService healthService)
     {
         InitializeComponent();
         _healthService = healthService;
-
+        _urlLauncher = urlLauncher;
+        
         // 訂閱捷徑傳進來的事件
         UrlSchemeService.StepReceived += OnStepReceivedFromShortcut;
 
@@ -56,8 +58,7 @@ public partial class MainPage : ContentPage
         bool result = await _healthService.AddStepAsync(step);
         if (result)
         {
-            var shortcutsUrl = new NSUrl("shortcuts://");
-            UIApplication.SharedApplication.OpenUrl(shortcutsUrl, new UIApplicationOpenUrlOptions(), null);
+            _urlLauncher.OpenUrl("shortcuts://");
         }
        
       //  await DisplayAlert(
