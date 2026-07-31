@@ -29,9 +29,9 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
   <key>NSHealthUpdateUsageDescription</key>
-  <string>需要寫入步數資料</string>
+  <string>%@ 需要寫入步數資料</string>
 
   <key>NSHealthShareUsageDescription</key>
-  <string>需要讀取健康資料</string>
+  <string>%@ 需要讀取健康資料</string>
 </dict>
 </plist>
