@@ -10,6 +10,20 @@ namespace StepEditor
     {
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
 
+        public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+        {
+            var result = base.FinishedLaunching(application, launchOptions);
+
+            // 冷啟動時，檢查有沒有帶著 URL 進來
+            if (launchOptions != null &&
+                launchOptions[UIApplication.LaunchOptionsUrlKey] is NSUrl url)
+            {
+                HandleIncomingUrl(url);
+            }
+
+            return result;
+        }
+
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
             HandleIncomingUrl(url);
