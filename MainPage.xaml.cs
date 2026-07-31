@@ -7,7 +7,7 @@ public partial class MainPage : ContentPage
     private readonly IHealthService _healthService;
     private readonly IUrlLauncher _urlLauncher;
     
-    public MainPage(IHealthService healthService)
+    public MainPage(IHealthService healthService, IUrlLauncher urlLauncher)
     {
         InitializeComponent();
         _healthService = healthService;
