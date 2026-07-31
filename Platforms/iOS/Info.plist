@@ -33,5 +33,19 @@
 
   <key>NSHealthShareUsageDescription</key>
   <string>此App需要讀取您健康App中的步數資料，以便顯示您的每日運動進度</string>
+
+
+  <key>CFBundleURLTypes</key>
+	<array>
+	    <dict>
+	        <key>CFBundleURLSchemes</key>
+	        <array>
+	            <string>steptopikumi</string>
+	        </array>
+	        <key>CFBundleURLName</key>
+	        <string>com.TaiwanShoter.PikachuStepWalk</string>
+	    </dict>
+	</array>
+
 </dict>
 </plist>
