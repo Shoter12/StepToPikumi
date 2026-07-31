@@ -1,5 +1,7 @@
-﻿using Foundation;
+using Foundation;
 using UIKit;
+using System.Linq;
+using StepEditor.Services;
 
 namespace StepEditor
 {
@@ -7,26 +9,26 @@ namespace StepEditor
     public class AppDelegate : MauiUIApplicationDelegate
     {
         protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
-    }
-    public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
-    {
-        HandleIncomingUrl(url);
-        return true;
-    }
 
-    private void HandleIncomingUrl(NSUrl url)
-    {
-        // url 範例: steptopikumi://addstep?count=100
-        if (url.Host == "addstep")
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            var components = new NSUrlComponents(url, false);
-            var items = components.QueryItems;
-            var countItem = items?.FirstOrDefault(i => i.Name == "count");
+            HandleIncomingUrl(url);
+            return true;
+        }
 
-            if (countItem != null && int.TryParse(countItem.Value, out int stepCount))
+        private void HandleIncomingUrl(NSUrl url)
+        {
+            // url 範例: steptopikumi://addstep?count=100
+            if (url.Host == "addstep")
             {
-                // 透過事件通知 MAUI 端執行
-                UrlSchemeService.RaiseStepReceived(stepCount);
+                var components = new NSUrlComponents(url, false);
+                var items = components.QueryItems;
+                var countItem = items?.FirstOrDefault(i => i.Name == "count");
+                if (countItem != null && int.TryParse(countItem.Value, out int stepCount))
+                {
+                    // 透過事件通知 MAUI 端執行
+                    UrlSchemeService.RaiseStepReceived(stepCount);
+                }
             }
         }
     }
