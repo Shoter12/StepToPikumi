@@ -27,15 +27,14 @@ public class HealthService : IHealthService
         var stepType =
             HKQuantityType.Create(HKQuantityTypeIdentifier.StepCount);
 
-
+         if (stepType is null)
+            {
+                tcs.SetResult(false);
+                return tcs.Task;
+            }
 
         NSSet writeTypes = new NSSet(stepType);
-
-
-
         NSSet readTypes = new NSSet(stepType);
-
-
 
         _healthStore.RequestAuthorizationToShare(
             writeTypes,
@@ -44,9 +43,6 @@ public class HealthService : IHealthService
             {
                 tcs.SetResult(success);
             });
-
-
-
         return tcs.Task;
     }
 
