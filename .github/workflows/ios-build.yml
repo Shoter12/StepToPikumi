@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - master
-
+    paths:
+      - '**.csproj'    # 專案檔修改才觸發
+      #- '**.cs'        # 只有 .cs 檔案修改才觸發
+      
 jobs:
   build-ios:
     runs-on: macos-15
