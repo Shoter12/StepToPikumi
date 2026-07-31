@@ -13,6 +13,13 @@ public partial class MainPage : ContentPage
 
         // 訂閱捷徑傳進來的事件
         UrlSchemeService.StepReceived += OnStepReceivedFromShortcut;
+
+        // 檢查冷啟動時是否有暫存未處理的步數
+        var pending = UrlSchemeService.ConsumePendingStep();
+        if (pending.HasValue)
+        {
+            _ = AddStepsAsync(pending.Value);
+        }
     }
 
     // 按鈕點擊：讀取畫面上輸入的數字
@@ -47,11 +54,16 @@ public partial class MainPage : ContentPage
         }
 
         bool result = await _healthService.AddStepAsync(step);
-
-        await DisplayAlert(
-            result ? "成功" : "失敗",
-            result ? "步數已新增" : "新增失敗",
-            "確定");
+        if (result)
+        {
+            var shortcutsUrl = new NSUrl("shortcuts://");
+            UIApplication.SharedApplication.OpenUrl(shortcutsUrl, new UIApplicationOpenUrlOptions(), null);
+        }
+       
+      //  await DisplayAlert(
+      //     result ? "成功" : "失敗",
+      //      result ? "步數已新增" : "新增失敗",
+      //      "確定");
     }
 
     protected override void OnDisappearing()
