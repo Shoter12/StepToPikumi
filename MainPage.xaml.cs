@@ -1,6 +1,4 @@
-﻿using StepEditor.Services;
-
-namespace StepEditor;
+using StepEditor.Services;
 
 public partial class MainPage : ContentPage
 {
@@ -9,99 +7,54 @@ public partial class MainPage : ContentPage
     public MainPage(IHealthService healthService)
     {
         InitializeComponent();
-
         _healthService = healthService;
-        RequestPermission();
-    }
-    private async void RequestPermission()
-{
-    try
-    {
-        bool ok = await _healthService.RequestAuthorizationAsync();
-        if (!ok)
-        {
-            await DisplayAlert("提醒", "沒有取得 HealthKit 權限", "OK");
-        }
-    }
-    catch (Exception ex)
-    {
-        await DisplayAlert("Debug錯誤", ex.ToString(), "OK");
-    }
-}
-    private async void btnAdd_Clicked(
-        object sender,
-        EventArgs e)
-    {
 
+        // 訂閱捷徑傳進來的事件
+        UrlSchemeService.StepReceived += OnStepReceivedFromShortcut;
+    }
+
+    // 按鈕點擊：讀取畫面上輸入的數字
+    private async void btnAdd_Clicked(object sender, EventArgs e)
+    {
+        if (!int.TryParse(txtStep.Text, out int step))
+        {
+            await DisplayAlert("錯誤", "請輸入數字", "確定");
+            return;
+        }
+
+        await AddStepsAsync(step);
+    }
+
+    // 捷徑呼叫進來：直接帶著參數執行，不用等按鈕
+    private async void OnStepReceivedFromShortcut(int step)
+    {
+        await AddStepsAsync(step);
+    }
+
+    // 共用邏輯：手動按鈕跟捷徑都會走到這裡
+    private async Task AddStepsAsync(int step)
+    {
         if (!_healthService.IsAuthorized())
         {
-
-            bool auth =
-                await _healthService
-                .RequestAuthorizationAsync();
-
-
+            bool auth = await _healthService.RequestAuthorizationAsync();
             if (!auth)
             {
-                await DisplayAlert(
-                    "權限不足",
-                    "請到健康App開啟權限",
-                    "確定");
-
+                await DisplayAlert("權限不足", "請到健康App開啟權限", "確定");
                 return;
             }
         }
 
-
-
-        if (!int.TryParse(
-            txtStep.Text,
-            out int step))
-        {
-            await DisplayAlert(
-                "錯誤",
-                "請輸入數字",
-                "確定");
-
-            return;
-        }
-
-
-
-        bool result =
-            await _healthService
-            .AddStepAsync(step);
-
-
+        bool result = await _healthService.AddStepAsync(step);
 
         await DisplayAlert(
             result ? "成功" : "失敗",
-            result ?
-            "步數已新增" :
-            "新增失敗",
+            result ? "步數已新增" : "新增失敗",
             "確定");
     }
-    private async void btnAuth_Clicked(
-    object sender,
-    EventArgs e)
+
+    protected override void OnDisappearing()
     {
-        bool result =
-            await _healthService.RequestAuthorizationAsync();
-
-
-        if (result)
-        {
-            await DisplayAlert(
-                "成功",
-                "HealthKit授權完成",
-                "確定");
-        }
-        else
-        {
-            await DisplayAlert(
-                "失敗",
-                "使用者拒絕授權",
-                "確定");
-        }
+        base.OnDisappearing();
+        UrlSchemeService.StepReceived -= OnStepReceivedFromShortcut;
     }
 }
