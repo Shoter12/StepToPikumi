@@ -11,7 +11,7 @@ public partial class MainPage : ContentPage
         InitializeComponent();
 
         _healthService = healthService;
-        RequestPermission();
+        //RequestPermission();
     }
     private async void RequestPermission()
     {
