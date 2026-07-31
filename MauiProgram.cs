@@ -12,8 +12,6 @@ public static class MauiProgram
 
 #if IOS
         builder.Services.AddSingleton<IHealthService, HealthService>();
-#else
-        builder.Services.AddSingleton<IHealthService, FakeHealthService>();
 #endif
 
         return builder.Build();
