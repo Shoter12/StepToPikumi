@@ -29,9 +29,9 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
   <key>NSHealthUpdateUsageDescription</key>
-  <string>%@ 需要寫入步數資料</string>
+  <string>此App需要寫入您的每日步數資料至健康App，以便將您在App內記錄的運動成果同步至健康資料中</string>
 
   <key>NSHealthShareUsageDescription</key>
-  <string>%@ 需要讀取健康資料</string>
+  <string>此App需要讀取您健康App中的步數資料，以便顯示您的每日運動進度</string>
 </dict>
 </plist>
