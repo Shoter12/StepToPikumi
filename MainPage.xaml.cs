@@ -1,5 +1,7 @@
 using StepEditor.Services;
 
+namespace StepEditor;
+
 public partial class MainPage : ContentPage
 {
     private readonly IHealthService _healthService;
